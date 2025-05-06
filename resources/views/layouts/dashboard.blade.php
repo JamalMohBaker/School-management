@@ -17,6 +17,7 @@
     <link rel="icon" href="{{asset('assets/images/brand-logos/school.jpeg')}}" type="image/x-icon">
     {{-- <link rel="stylesheet" href="{{asset('assets/css/fontawesome.css')}}"> --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
     <!-- Choices JS -->
     <script src="{{asset('assets/libs/choices.js/public/assets/scripts/choices.min.js')}}"></script>
 
@@ -51,6 +52,8 @@
     <link rel="stylesheet" href="{{asset('assets/libs/swiper/swiper-bundle.min.css')}}">
     <!-- jQuery -->
     <script src="{{asset('js/jquery3.6.0.js')}}"></script>
+    {{-- Tostar css --}}
+    <link rel="stylesheet" href="{{asset('css/toastr.min.css')}}">
     @yield('styles')
 </head>
 
@@ -575,7 +578,9 @@
     <!-- CRM-Dashboard -->
      {{-- <script src="{{asset('assets/js/crm-dashboard.js')}}"></script> --}}
 
-
+    <script src="{{asset('js/axios.js')}}"></script>
+    <!-- Toastr -->
+    <script src="{{asset('js/toastr.min.js')}}"></script>
     <!-- Custom-Switcher JS -->
     <script src="{{asset('assets/js/custom-switcher.min.js')}}"></script>
 

@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 @section('title', 'create Grade')
 @section('styles')
-<link rel="stylesheet" href="{{asset('css/toastr.min.css')}}">
+
 @endsection
 @section('content')
 
@@ -31,9 +31,7 @@
 
 
     @section('scripts')
-        <script src="{{asset('js/axios.js')}}"></script>
-        <!-- Toastr -->
-        <script src="{{asset('js/toastr.min.js')}}"></script>
+        
         <script>
             function performStore() {
                 axios.post('/grades', {
