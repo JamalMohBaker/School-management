@@ -1,5 +1,5 @@
 @extends('layouts.dashboard')
-@section('title', 'create Grade')
+@section('title', __('dashboard.all_grade'))
 @section('styles')
 {{-- <link rel="stylesheet" href="{{asset('css/toastr.min.css')}}"> --}}
 @endsection
@@ -8,11 +8,11 @@
         <table class="table text-nowrap table-striped table-hover">
             <thead>
                 <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Created_at</th>
-                    <th scope="col">Updated_at</th>
-                    <th scope="col">Action</th>
+                    <th scope="col">{{__('grade.id')}}</th>
+                    <th scope="col">{{__('grade.name')}}</th>
+                    <th scope="col">{{__('grade.created_at')}}</th>
+                    <th scope="col">{{__('grade.updated_at')}}</th>
+                    <th scope="col">{{__('grade.action')}}</th>
                 </tr>
             </thead>
             <tbody>
@@ -20,7 +20,10 @@
                     <tr>
                         <th scope="row">
                             <div class="d-flex align-items-center">
-                                {{ $grade->id }}
+                                {{-- {{ $grade->id }} --}}
+                                {{$grades->firstItem() + $loop->index}}
+                                {{-- $grades->firstItem() تعطي الرقم الفعلي لأول عنصر في الصفحة الحالية.
+                                $loop->index هو رقم العنصر داخل الحلقة (يبدأ من 0). --}}
                             </div>
                         </th>
                         
@@ -36,11 +39,21 @@
                         </td>
                     </tr>
                 @endforeach
-               
+              
             </tbody>
+            
         </table>
+        <div class="mt-3">
+            {{ $grades->links() }}
+        </div>
     </div>
-           
+        <div class="position-relative">
+            <a href="{{route('grades.create')}}">
+                <div class="position-absolute bottom-10 end-0 btn btn-primary">
+                    + {{__('grade.add')}}
+                </div>
+            </a> 
+        </div>
     
     @section('scripts')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

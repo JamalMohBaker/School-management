@@ -412,7 +412,7 @@
                             <a href="javascript:void(0);" class="side-menu__item">
                                 <i class="bi bi-house-add-fill"></i>
                                 <i class="fa-solid fa-book-medical m-1"></i>
-                                <span class="side-menu__label"> {{__('Grade')}} </span>
+                                <span class="side-menu__label"> {{__('dashboard.grade')}} </span>
                                 <i class="fe fe-chevron-right side-menu__angle"></i>
                             </a>
                             <ul class="slide-menu child1" >
@@ -421,7 +421,7 @@
                                     <a href="{{route('grades.index')}}" class="side-menu__item"> 
                                         <i class="bi bi-house-add-fill"></i>
                                         {{-- <i class="fa-solid fa-person-circle-plus"></i> --}}
-                                        <span class="p-1">{{__('All Grade')}}</span>
+                                        <span class="p-1">{{__('dashboard.all_grade')}}</span>
                                         </a>
                                         
                                 </li>

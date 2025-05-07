@@ -14,7 +14,7 @@ class GradeController extends Controller
      */
     public function index()
     {
-        $grades = Grade::all();
+        $grades = Grade::paginate(3);
         return view('grades.index',
         ['grades' => $grades]
     );
