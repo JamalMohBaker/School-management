@@ -17,7 +17,7 @@ class GradeController extends Controller
         $grades = Grade::paginate(3);
         return view('grades.index',
         ['grades' => $grades]
-    );
+        );
     }
 
     /**
@@ -64,7 +64,7 @@ class GradeController extends Controller
     {
         //
         return view(
-            'grades.update',
+            'grades.edit',
             ['grade' => $grade]
         );
 

@@ -392,17 +392,17 @@
                             <ul class="slide-menu child1" >
                                 
                                 <li class="slide has-sub">
-                                    <a href="{{route('grades.index')}}" class="side-menu__item"> 
+                                    <a href="{{route('users.index')}}" class="side-menu__item"> 
                                         <i class="bi bi-house-add-fill"></i>
                                         {{-- <i class="fa-solid fa-person-circle-plus"></i> --}}
-                                        <span class="p-1">{{__('All Grade')}}</span>
+                                        <span class="p-1">{{__('All Users')}}</span>
                                         </a>
                                         
                                 </li>
                                 <li class="slide">
-                                    <a href="{{route('grades.create')}}" class="side-menu__item">
+                                    <a href="{{route('users.create')}}" class="side-menu__item">
                                         
-                                      <span class="p-1"> {{__('dashboard.add_grade')}} </span>  
+                                      <span class="p-1"> {{__('dashboard.add_user')}} </span>  
                                     </a>
                                 </li>
                                
@@ -429,6 +429,32 @@
                                     <a href="{{route('grades.create')}}" class="side-menu__item">
                                         
                                       <span class="p-1"> {{__('dashboard.add_grade')}} </span>  
+                                    </a>
+                                </li>
+                               
+                            </ul>
+                        </li>
+                        <li class="slide has-sub">
+                            <a href="javascript:void(0);" class="side-menu__item">
+                                <i class="bi bi-house-add-fill"></i>
+                                <i class="fa-solid fa-book-medical m-1"></i>
+                                <span class="side-menu__label"> {{__('dashboard.classroom')}} </span>
+                                <i class="fe fe-chevron-right side-menu__angle"></i>
+                            </a>
+                            <ul class="slide-menu child1" >
+                                
+                                <li class="slide has-sub">
+                                    <a href="{{route('classrooms.index')}}" class="side-menu__item"> 
+                                        <i class="bi bi-house-add-fill"></i>
+                                        {{-- <i class="fa-solid fa-person-circle-plus"></i> --}}
+                                        <span class="p-1">{{__('dashboard.all_classroom')}}</span>
+                                        </a>
+                                        
+                                </li>
+                                <li class="slide">
+                                    <a href="{{route('classrooms.create')}}" class="side-menu__item">
+                                        
+                                      <span class="p-1"> {{__('dashboard.add_class')}} </span>  
                                     </a>
                                 </li>
                                

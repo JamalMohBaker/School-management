@@ -5,9 +5,9 @@ return[
     'created_at' => 'Created_at',
     'updated_at' => 'Updated_at',
     'action' => 'Action',
-    'add' => 'Add',
     'name_of_grade' => 'Name Of Grade',
-    'update_grade' => 'Update grade',
+    'update_grade' => 'Update Grade',
+    'create_grade' => 'Create Grade',
     'save' => 'Save',
 ];
 ?>

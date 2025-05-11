@@ -45,4 +45,14 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function getFormattedStatusAttribute()
+    {
+        if ($this->status === 'active') {
+            return '<span style="background-color: green; color: white; padding: 4px 8px; border-radius: 4px;">Active</span>';
+        } elseif ($this->status === 'inactive') {
+            return '<span style="background-color: red; color: white; padding: 4px 8px; border-radius: 4px;">Inactive</span>';
+        }
+
+        return $this->status;
+    }
 }

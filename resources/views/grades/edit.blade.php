@@ -7,7 +7,7 @@
 
 <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
     <h1 class="page-title fw-semibold fs-18 mb-0"><a href="{{url('grades')}}">
-            <i class="fa-solid fa-circle-left " style="color: #9933FF;"></i> <span class="ml-2">{{__('dashboard.main_Page')}}</span> </a></h1>
+            <i class="fa-solid fa-circle-left " style="color: #9933FF;"></i> <span class="ml-2">{{__('dashboard.all_grade')}}</span> </a></h1>
     <div class="ms-md-1 ms-0">
         <nav>
             <ol class="breadcrumb mb-0">
