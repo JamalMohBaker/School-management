@@ -55,4 +55,7 @@ class User extends Authenticatable
 
         return $this->status;
     }
+    public function subjectTeachers(){
+        return $this->hasMany(SubjectTeacher::class, 'user_id');
+    }
 }

@@ -460,6 +460,58 @@
                                
                             </ul>
                         </li>
+                        <li class="slide has-sub">
+                            <a href="javascript:void(0);" class="side-menu__item">
+                                <i class="bi bi-house-add-fill"></i>
+                                <i class="fa-solid fa-book-medical m-1"></i>
+                                <span class="side-menu__label"> Subjects </span>
+                                <i class="fe fe-chevron-right side-menu__angle"></i>
+                            </a>
+                            <ul class="slide-menu child1" >
+                                
+                                <li class="slide has-sub">
+                                    <a href="{{route('subjects.index')}}" class="side-menu__item"> 
+                                        <i class="bi bi-house-add-fill"></i>
+                                        {{-- <i class="fa-solid fa-person-circle-plus"></i> --}}
+                                        <span class="p-1">All Subjects</span>
+                                        </a>
+                                        
+                                </li>
+                                <li class="slide">
+                                    <a href="{{route('subjects.create')}}" class="side-menu__item">
+                                        
+                                      <span class="p-1"> Add Subject </span>  
+                                    </a>
+                                </li>
+                               
+                            </ul>
+                        </li>
+                        <li class="slide has-sub">
+                            <a href="javascript:void(0);" class="side-menu__item">
+                                <i class="bi bi-house-add-fill"></i>
+                                <i class="fa-solid fa-book-medical m-1"></i>
+                                <span class="side-menu__label"> Sub_teacher_class </span>
+                                <i class="fe fe-chevron-right side-menu__angle"></i>
+                            </a>
+                            <ul class="slide-menu child1" >
+                                
+                                <li class="slide has-sub">
+                                    <a href="{{route('sub_teachers.index')}}" class="side-menu__item"> 
+                                        <i class="bi bi-house-add-fill"></i>
+                                        {{-- <i class="fa-solid fa-person-circle-plus"></i> --}}
+                                        <span class="p-1">All sub_teachers</span>
+                                        </a>
+                                        
+                                </li>
+                                <li class="slide">
+                                    <a href="{{route('sub_teachers.create')}}" class="side-menu__item">
+                                        
+                                      <span class="p-1"> Add sub_teachers </span>  
+                                    </a>
+                                </li>
+                               
+                            </ul>
+                        </li>
                     </ul>
                     <div class="slide-right" id="slide-right"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191"
                             width="24" height="24" viewBox="0 0 24 24">

@@ -11,4 +11,7 @@ class Classroom extends Model
     {
         return $this->belongsTo(Grade::class);
     }
+    public function subjectTeachers(){
+        return $this->hasMany(subjectTeacher::class,'classroom_id');
+    }
 }
