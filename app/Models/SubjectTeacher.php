@@ -18,4 +18,12 @@ class SubjectTeacher extends Model
     public function subject(){
         return $this->belongsTo(Subject::class);
     }
+    public function subjectTeachers()
+    {
+        return $this->hasMany(SubjectTeacher::class, 'user_id');
+    }
+    public function lectures()
+    {
+        return $this->hasMany(Lecture::class, 'subject_teacher_classroom_id');
+    }
 }
