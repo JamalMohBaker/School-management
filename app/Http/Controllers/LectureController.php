@@ -80,6 +80,8 @@ class LectureController extends Controller
     public function edit(Lecture $lecture)
     {
         //
+        $lecture = Lecture::with('SubjectTeacher.user', 'SubjectTeacher.subject', 'SubjectTeacher.classroom.grade')
+            ->findOrFail($lecture);
         $sub_teachers = SubjectTeacher::all();
         return view('lectures.edit',[
             'lecture' => $lecture,

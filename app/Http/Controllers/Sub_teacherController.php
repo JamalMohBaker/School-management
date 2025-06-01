@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Classroom;
 use App\Models\Grade;
+use App\Models\Lecture;
 use App\Models\Subject;
 use App\Models\SubjectTeacher;
 use App\Models\User;
@@ -82,17 +83,54 @@ class Sub_teacherController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(SubjectTeacher $sub_teacher)
     {
         //
+        // $lecture = Lecture::with('SubjectTeacher.user', 'SubjectTeacher.subject', 'SubjectTeacher.classroom.grade')
+        //     ->where('subject_teacher_classroom_id', $sub_teacher->id)
+        //     ->first();
+        $classrooms = Classroom::with('grade')->get();
+        $subjects = Subject::all();
+        $teachers = User::where('type', 'teacher')->where('status', 'active')->get();
+
+        $sub_teachers = SubjectTeacher::with(['user','subject','classroom.grade'])->get();
+        return view('subTeacher.edit',[
+            // 'lecture' => $lecture,
+            'sub_teachers' => $sub_teachers,
+            'sub_teacher' => $sub_teacher,
+            'classrooms' => $classrooms,
+            'subjects' => $subjects,
+            'teachers' => $teachers,
+        ]);
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, SubjectTeacher $sub_teacher)
     {
         //
+        $validator = Validator($request->all(), [
+            'description' => 'required|string',
+            'classroom' => 'required|exists:classrooms,id',
+            'subject' => 'required|exists:subjects,id',
+            'teacher' => 'required|exists:users,id',
+        ]);
+        if (!$validator->fails()) {
+            // $SubjectTeacher = new SubjectTeacher();
+            $sub_teacher->description = $request->input('description');
+            $sub_teacher->classroom_id  = $request->input('classroom');
+            $sub_teacher->subject_id = $request->input('subject');
+            $sub_teacher->user_id = $request->input('teacher');
+            $isSaved = $sub_teacher->save();
+            return response()->json([
+                "message" => $isSaved ? 'Updated Successfully' : 'Failed Updated!',
+                $isSaved ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST
+            ]);
+        } else {
+            return response()->json(["message" => $validator->getMessageBag()->first()], Response::HTTP_BAD_REQUEST);
+        }
     }
 
     /**

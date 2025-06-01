@@ -52,7 +52,7 @@
                             
                             <td>
                                 <div class="hstack gap-2 flex-wrap">
-                                    <a href="{{ route('users.edit', $sub_teacher->id) }}" class="text-info fs-14 lh-1"><i
+                                    <a href="{{ route('sub_teachers.edit', $sub_teacher->id) }}" class="text-info fs-14 lh-1"><i
                                             class="ri-edit-line"></i></a>
                                     <a href="#" onclick="confirmDelete('{{$sub_teacher->id}}', this)"
                                         class="text-danger fs-14 lh-1"><i class="ri-delete-bin-5-line"></i></a>
