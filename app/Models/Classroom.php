@@ -14,4 +14,7 @@ class Classroom extends Model
     public function subjectTeachers(){
         return $this->hasMany(subjectTeacher::class,'classroom_id');
     }
+    public function classroom_student(){
+        return $this->hasMany(ClassroomsStudent::class);
+    }
 }

@@ -4,7 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
-
+use App\Models\ClassroomsStudent;
+use Illuminate\Support\Facades\Route;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -22,5 +23,6 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         Paginator::useBootstrap();
+        // Route::model('class_student', ClassroomsStudent::class);
     }
 }
