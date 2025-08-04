@@ -15,9 +15,10 @@
 
     <!-- Favicon -->
     <link rel="icon" href="{{asset('assets/images/brand-logos/school.jpeg')}}" type="image/x-icon">
-    {{-- <link rel="stylesheet" href="{{asset('assets/css/fontawesome.css')}}"> --}}
+    {{--
+    <link rel="stylesheet" href="{{asset('assets/css/fontawesome.css')}}"> --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    
+
     <!-- Choices JS -->
     <script src="{{asset('assets/libs/choices.js/public/assets/scripts/choices.min.js')}}"></script>
 
@@ -82,12 +83,18 @@
                     <div class="header-element">
                         <div class="horizontal-logo">
                             <a href="index.html" class="header-logo">
-                                <img src="{{asset('assets/images/brand-logos/school.jpeg')}}" alt="logo" class="desktop-logo">
-                                <img src="{{asset('assets/images/brand-logos/school.jpeg')}}" alt="logo" class="toggle-logo">
-                                <img src="{{asset('assets/images/brand-logos/school.jpeg')}}" alt="logo" class="desktop-dark">
-                                <img src="{{asset('assets/images/brand-logos/school.jpeg')}}" alt="logo" class="toggle-dark">
-                                <img src="{{asset('assets/images/brand-logos/school.jpeg')}}" alt="logo" class="desktop-white">
-                                <img src="{{asset('assets/images/brand-logos/school.jpeg')}}" alt="logo" class="toggle-white">
+                                <img src="{{asset('assets/images/brand-logos/school.jpeg')}}" alt="logo"
+                                    class="desktop-logo">
+                                <img src="{{asset('assets/images/brand-logos/school.jpeg')}}" alt="logo"
+                                    class="toggle-logo">
+                                <img src="{{asset('assets/images/brand-logos/school.jpeg')}}" alt="logo"
+                                    class="desktop-dark">
+                                <img src="{{asset('assets/images/brand-logos/school.jpeg')}}" alt="logo"
+                                    class="toggle-dark">
+                                <img src="{{asset('assets/images/brand-logos/school.jpeg')}}" alt="logo"
+                                    class="desktop-white">
+                                <img src="{{asset('assets/images/brand-logos/school.jpeg')}}" alt="logo"
+                                    class="toggle-white">
                             </a>
                         </div>
                     </div>
@@ -148,7 +155,7 @@
                             </li>
                         </ul>
                     </div>
-               
+
 
 
 
@@ -312,8 +319,8 @@
                                         class="rounded-circle">
                                 </div>
                                 <div class="d-sm-block d-none">
-                                    <p class="fw-semibold mb-0 lh-1">Json Taylor</p>
-                                    <span class="op-7 fw-normal d-block fs-11">Web Designer</span>
+                                    <p class="fw-semibold mb-0 lh-1"> {{Auth::user()->first_name}} {{Auth::user()->last_name}} </p>
+                                    <span class="op-7 fw-normal d-block mt-1" style="text-align: center"> {{Auth::user()->type}}</span>
                                 </div>
                             </div>
                         </a>
@@ -333,8 +340,10 @@
                                         class="ti ti-wallet fs-18 me-2 op-7"></i>Bal: $7,12,950</a></li>
                             <li><a class="dropdown-item d-flex" href="chat.html"><i
                                         class="ti ti-headset fs-18 me-2 op-7"></i>Support</a></li>
-                            <li><a class="dropdown-item d-flex" href="sign-in-cover.html"><i
-                                        class="ti ti-logout fs-18 me-2 op-7"></i>Log Out</a></li>
+                            <li><a class="dropdown-item d-flex" id="logout" style="cursor: pointer;" onclick="logout()">
+                                <i class="ti ti-logout fs-18 me-2 op-7"></i>
+                                    logout
+                                    </a></li>
                         </ul>
                     </div>
                     <!-- End::header-element -->
@@ -376,36 +385,36 @@
                             <path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path>
                         </svg>
                     </div>
-                    <ul class="main-menu" >
+                    <ul class="main-menu">
                         <!-- Start::slide__category -->
                         <li class="slide__category"><span class="category-name">{{ __('dashboard.main') }}</span></li>
                         <!-- End::slide__category -->
-                    
+
                         <!-- Start::slide -->
-                       
+
                         <li class="slide has-sub">
                             <a href="javascript:void(0);" class="side-menu__item">
                                 <i class="fa-solid fa-user m-1"></i>
                                 <span class="side-menu__label"> {{__('Users')}} </span>
                                 <i class="fe fe-chevron-right side-menu__angle"></i>
                             </a>
-                            <ul class="slide-menu child1" >
-                                
+                            <ul class="slide-menu child1">
+
                                 <li class="slide has-sub">
-                                    <a href="{{route('users.index')}}" class="side-menu__item"> 
+                                    <a href="{{route('users.index')}}" class="side-menu__item">
                                         <i class="bi bi-house-add-fill"></i>
                                         {{-- <i class="fa-solid fa-person-circle-plus"></i> --}}
                                         <span class="p-1">{{__('All Users')}}</span>
-                                        </a>
-                                        
+                                    </a>
+
                                 </li>
                                 <li class="slide">
                                     <a href="{{route('users.create')}}" class="side-menu__item">
-                                        
-                                      <span class="p-1"> {{__('dashboard.add_user')}} </span>  
+
+                                        <span class="p-1"> {{__('dashboard.add_user')}} </span>
                                     </a>
                                 </li>
-                               
+
                             </ul>
                         </li>
                         <li class="slide has-sub">
@@ -415,23 +424,23 @@
                                 <span class="side-menu__label"> {{__('dashboard.grade')}} </span>
                                 <i class="fe fe-chevron-right side-menu__angle"></i>
                             </a>
-                            <ul class="slide-menu child1" >
-                                
+                            <ul class="slide-menu child1">
+
                                 <li class="slide has-sub">
-                                    <a href="{{route('grades.index')}}" class="side-menu__item"> 
+                                    <a href="{{route('grades.index')}}" class="side-menu__item">
                                         <i class="bi bi-house-add-fill"></i>
                                         {{-- <i class="fa-solid fa-person-circle-plus"></i> --}}
                                         <span class="p-1">{{__('dashboard.all_grade')}}</span>
-                                        </a>
-                                        
+                                    </a>
+
                                 </li>
                                 <li class="slide">
                                     <a href="{{route('grades.create')}}" class="side-menu__item">
-                                        
-                                      <span class="p-1"> {{__('dashboard.add_grade')}} </span>  
+
+                                        <span class="p-1"> {{__('dashboard.add_grade')}} </span>
                                     </a>
                                 </li>
-                               
+
                             </ul>
                         </li>
                         <li class="slide has-sub">
@@ -441,23 +450,23 @@
                                 <span class="side-menu__label"> {{__('dashboard.classroom')}} </span>
                                 <i class="fe fe-chevron-right side-menu__angle"></i>
                             </a>
-                            <ul class="slide-menu child1" >
-                                
+                            <ul class="slide-menu child1">
+
                                 <li class="slide has-sub">
-                                    <a href="{{route('classrooms.index')}}" class="side-menu__item"> 
+                                    <a href="{{route('classrooms.index')}}" class="side-menu__item">
                                         <i class="bi bi-house-add-fill"></i>
                                         {{-- <i class="fa-solid fa-person-circle-plus"></i> --}}
                                         <span class="p-1">{{__('dashboard.all_classroom')}}</span>
-                                        </a>
-                                        
+                                    </a>
+
                                 </li>
                                 <li class="slide">
                                     <a href="{{route('classrooms.create')}}" class="side-menu__item">
-                                        
-                                      <span class="p-1"> {{__('dashboard.add_class')}} </span>  
+
+                                        <span class="p-1"> {{__('dashboard.add_class')}} </span>
                                     </a>
                                 </li>
-                               
+
                             </ul>
                         </li>
                         <li class="slide has-sub">
@@ -467,23 +476,23 @@
                                 <span class="side-menu__label"> Subjects </span>
                                 <i class="fe fe-chevron-right side-menu__angle"></i>
                             </a>
-                            <ul class="slide-menu child1" >
-                                
+                            <ul class="slide-menu child1">
+
                                 <li class="slide has-sub">
-                                    <a href="{{route('subjects.index')}}" class="side-menu__item"> 
+                                    <a href="{{route('subjects.index')}}" class="side-menu__item">
                                         <i class="bi bi-house-add-fill"></i>
                                         {{-- <i class="fa-solid fa-person-circle-plus"></i> --}}
                                         <span class="p-1">All Subjects</span>
-                                        </a>
-                                        
+                                    </a>
+
                                 </li>
                                 <li class="slide">
                                     <a href="{{route('subjects.create')}}" class="side-menu__item">
-                                        
-                                      <span class="p-1"> Add Subject </span>  
+
+                                        <span class="p-1"> Add Subject </span>
                                     </a>
                                 </li>
-                               
+
                             </ul>
                         </li>
                         <li class="slide has-sub">
@@ -493,23 +502,23 @@
                                 <span class="side-menu__label"> Sub_teacher_class </span>
                                 <i class="fe fe-chevron-right side-menu__angle"></i>
                             </a>
-                            <ul class="slide-menu child1" >
-                                
+                            <ul class="slide-menu child1">
+
                                 <li class="slide has-sub">
-                                    <a href="{{route('sub_teachers.index')}}" class="side-menu__item"> 
+                                    <a href="{{route('sub_teachers.index')}}" class="side-menu__item">
                                         <i class="bi bi-house-add-fill"></i>
                                         {{-- <i class="fa-solid fa-person-circle-plus"></i> --}}
                                         <span class="p-1">All sub_teachers</span>
-                                        </a>
-                                        
+                                    </a>
+
                                 </li>
                                 <li class="slide">
                                     <a href="{{route('sub_teachers.create')}}" class="side-menu__item">
-                                        
-                                      <span class="p-1"> Add sub_teachers </span>  
+
+                                        <span class="p-1"> Add sub_teachers </span>
                                     </a>
                                 </li>
-                               
+
                             </ul>
                         </li>
                         <li class="slide has-sub">
@@ -519,23 +528,23 @@
                                 <span class="side-menu__label"> Lectures </span>
                                 <i class="fe fe-chevron-right side-menu__angle"></i>
                             </a>
-                            <ul class="slide-menu child1" >
-                                
+                            <ul class="slide-menu child1">
+
                                 <li class="slide has-sub">
-                                    <a href="{{route('lectures.index')}}" class="side-menu__item"> 
+                                    <a href="{{route('lectures.index')}}" class="side-menu__item">
                                         <i class="bi bi-house-add-fill"></i>
                                         {{-- <i class="fa-solid fa-person-circle-plus"></i> --}}
                                         <span class="p-1">All Lectures</span>
-                                        </a>
-                                        
+                                    </a>
+
                                 </li>
                                 <li class="slide">
                                     <a href="{{route('lectures.create')}}" class="side-menu__item">
-                                        
-                                      <span class="p-1"> Add Lecture </span>  
+
+                                        <span class="p-1"> Add Lecture </span>
                                     </a>
                                 </li>
-                               
+
                             </ul>
                         </li>
                         <li class="slide has-sub">
@@ -545,23 +554,49 @@
                                 <span class="side-menu__label">add Student to Class</span>
                                 <i class="fe fe-chevron-right side-menu__angle"></i>
                             </a>
-                            <ul class="slide-menu child1" >
-                                
+                            <ul class="slide-menu child1">
+
                                 <li class="slide has-sub">
-                                    <a href="{{route('class_students.index')}}" class="side-menu__item"> 
+                                    <a href="{{route('class_students.index')}}" class="side-menu__item">
                                         <i class="bi bi-house-add-fill"></i>
                                         {{-- <i class="fa-solid fa-person-circle-plus"></i> --}}
                                         <span class="p-1">All Student with Class</span>
-                                        </a>
-                                        
+                                    </a>
+
                                 </li>
                                 <li class="slide">
                                     <a href="{{route('class_students.create')}}" class="side-menu__item">
-                                        
-                                      <span class="p-1"> Add Class_Student </span>  
+
+                                        <span class="p-1"> Add Class_Student </span>
                                     </a>
                                 </li>
-                               
+
+                            </ul>
+                        </li>
+                        <li class="slide has-sub">
+                            <a href="javascript:void(0);" class="side-menu__item">
+                                <i class="bi bi-house-add-fill"></i>
+                                <i class="fa-solid fa-book-medical m-1"></i>
+                                <span class="side-menu__label">Exams</span>
+                                <i class="fe fe-chevron-right side-menu__angle"></i>
+                            </a>
+                            <ul class="slide-menu child1">
+
+                                <li class="slide has-sub">
+                                    <a href="{{route('exams.index')}}" class="side-menu__item">
+                                        <i class="bi bi-house-add-fill"></i>
+                                        {{-- <i class="fa-solid fa-person-circle-plus"></i> --}}
+                                        <span class="p-1">All Exams</span>
+                                    </a>
+
+                                </li>
+                                <li class="slide">
+                                    <a href="{{route('exams.create')}}" class="side-menu__item">
+
+                                        <span class="p-1"> Add Exam </span>
+                                    </a>
+                                </li>
+
                             </ul>
                         </li>
                     </ul>
@@ -693,7 +728,7 @@
 
 
 
-     <!-- JSVector Maps JS -->
+    <!-- JSVector Maps JS -->
     <script src="{{asset('assets/libs/jsvectormap/js/jsvectormap.min.js')}}"></script>
 
     <!-- JSVector Maps MapsJS -->
@@ -703,10 +738,10 @@
     <script src="{{asset('assets/libs/apexcharts/apexcharts.min.js')}}"></script>
 
     <!-- Chartjs Chart JS -->
-    <script src="{{asset('assets/libs/chart.js/chart.min.js')}}"></script> 
+    <script src="{{asset('assets/libs/chart.js/chart.min.js')}}"></script>
 
     <!-- CRM-Dashboard -->
-     {{-- <script src="{{asset('assets/js/crm-dashboard.js')}}"></script> --}}
+    {{-- <script src="{{asset('assets/js/crm-dashboard.js')}}"></script> --}}
 
     <script src="{{asset('js/axios.js')}}"></script>
     <!-- Toastr -->
@@ -715,9 +750,20 @@
     <script src="{{asset('assets/js/custom-switcher.min.js')}}"></script>
 
     <!-- Custom JS -->
-    <script src="{{asset('assets/js/custom.js')}}"></script> 
+    <script src="{{asset('assets/js/custom.js')}}"></script>
     @yield('scripts')
-    
+    <script>
+       function logout(){
+
+        $.ajax({
+        url:"{{route('logout') }}",
+        type:"POST",
+        data: { _token:"{{ csrf_token() }}"},
+        
+        })
+        location="/";
+       }
+    </script>
 </body>
 
 </html>

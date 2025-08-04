@@ -1,5 +1,5 @@
 @extends('layouts.dashboard')
-@section('title', 'All Students into Classrooms')
+@section('title', 'All Exams')
 @section('styles')
 <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap.min.css">
@@ -14,8 +14,22 @@
 <link rel="stylesheet" href="{{asset('css/toastr.min.css')}}"> --}}
 @endsection
 @section('content')
-
 <div class="row">
+  @if(session('success'))
+    <div class="alert alert-success mt-5" id="success-alert">
+        {{ session('success') }}
+    </div>
+    
+    <script>
+        // انتظر 5 ثوانٍ ثم قم بإخفاء الرسالة
+            setTimeout(function() {
+                var alertBox = document.getElementById('success-alert');
+                if (alertBox) {
+                    alertBox.style.display = 'none';
+                }
+            }, 5000); // 5000 milliseconds = 5 seconds
+    </script>
+    @endif
     <div class="col-xl-12 mt-5">
         <div class="card custom-card">
             <div class="card-header">
@@ -26,38 +40,35 @@
                     <thead>
                         <tr>
                             <th scope="col">Id</th>
-                            <th scope="col">Students</th>
-                            <th scope="col">Classrooms</th>
-                          
-
+                            <th scope="col">Title</th>
+                            <th scope="col">Subject</th>
+                            <th scope="col">For Class </th>
+                            <th scope="col">Show Questions</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($class_students as $class_student)
+                        @foreach ($exams as $exam)
                         <tr>
                             <th scope="row">
                                 <div class="d-flex align-items-center">
-
-                                    {{$class_students->firstItem() + $loop->index}}
-                                    
+                                    {{-- {{ $grade->id }} --}}
+                                    {{$exams->firstItem() + $loop->index}}
                                     {{-- $grades->firstItem() تعطي الرقم الفعلي لأول عنصر في الصفحة الحالية.
                                     $loop->index هو رقم العنصر داخل الحلقة (يبدأ من 0). --}}
                                 </div>
                             </th>
 
-                            <td>{{ $class_student->user->first_name }}</td>
-                            <td>{{ $class_student->classroom->grade->name }} {{
-                                $class_student->classroom->name }}</td>
+                            <td>{{ $exam->title }}</td>
+                            <td>{{ $exam->subjectTeacherClassroom->subject->name }}</td>
+                            <td>{{ $exam->subjectTeacherClassroom->classroom->grade->name }} {{ $exam->subjectTeacherClassroom->classroom->name }}</td>
+                            <td><a href="{{route('question.allQuestioions', ['id' => $exam->id])}}" class="btn bg-success text-white">Show All Questions</a></td>
                             
-
                             <td>
                                 <div class="hstack gap-2 flex-wrap">
-                                   <a href="{{ url('class_students/' . $class_student->classroom_id . '/' . $class_student->user_id . '/edit') }}"class="text-info fs-14 lh-1">
-                                        <i class="ri-edit-line"></i>                                </a>
-                                    {{-- <a href="{{route('class_students.edit', $lecture->id    ) }}" class="text-info fs-14 lh-1">
-                                                <i class="ri-edit-line"></i>                                        </a> --}}
-                                            <a href="#" onclick="confirmDelete('{{ $class_student->classroom_id }}', '{{ $class_student->user_id }}', this)"
+                                    <a href="{{ route('exams.edit', $exam->id) }}" class="text-info fs-14 lh-1"><i
+                                            class="ri-edit-line"></i></a>
+                                    <a href="#" onclick="confirmDelete('{{$exam->id}}', this)"
                                         class="text-danger fs-14 lh-1"><i class="ri-delete-bin-5-line"></i></a>
                                 </div>
                             </td>
@@ -68,17 +79,15 @@
 
                 </table>
                 <div class="mt-3">
-                    {{ $class_students->links() }}
+                    {{ $exams->links() }}
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-
-
 <div class="position-relative">
-    <a href="{{route('class_students.create')}}">
+    <a href="{{route('exams.create')}}">
         <div class="position-absolute bottom-10 end-0 btn btn-primary">
             + {{__('dashboard.add')}}
         </div>
@@ -88,8 +97,7 @@
 @section('scripts')
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    function confirmDelete(classroomId, userId, element){
-        
+    function confirmDelete(id, element){
                 Swal.fire({
                     title: "Are you sure?",
                     text: "You won't be able to revert this!",
@@ -100,7 +108,7 @@
                     confirmButtonText: "Yes, delete it!"
                 }).then((result) => {
                     if (result.isConfirmed) {
-                    performDelete(classroomId, userId, element);
+                    performDelete(id,element);
                     // Swal.fire({
                     // title: "Deleted!",
                     // text: "Your file has been deleted.",
@@ -110,10 +118,8 @@
                 });
             }
     
-            function performDelete(classroomId, userId, element){
-                axios.delete('/class_students', {
-                data: { classroom_id: classroomId, user_id: userId }
-                })
+            function performDelete(id, element){
+                axios.delete('/exams/' + id)
                 .then(function (response){
                     toastr.success(response.data.message);
                     element.closest('tr').remove();
@@ -121,7 +127,6 @@
                 
                 })
                 .catch(function (error){
-                console.log(error.response); 
                 toastr.error(error.response.data.message);
                 });
                 
