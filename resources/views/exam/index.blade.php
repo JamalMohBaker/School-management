@@ -62,7 +62,7 @@
                             <td>{{ $exam->title }}</td>
                             <td>{{ $exam->subjectTeacherClassroom->subject->name }}</td>
                             <td>{{ $exam->subjectTeacherClassroom->classroom->grade->name }} {{ $exam->subjectTeacherClassroom->classroom->name }}</td>
-                            <td><a href="{{route('question.allQuestioions', ['id' => $exam->id])}}" class="btn bg-success text-white">Show All Questions</a></td>
+                            <td><a href="{{route('questions.show', ['question' => $exam->id])}}" class="btn bg-success text-white">Show All Questions</a></td>
                             
                             <td>
                                 <div class="hstack gap-2 flex-wrap">

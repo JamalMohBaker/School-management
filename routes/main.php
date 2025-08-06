@@ -5,6 +5,7 @@ use App\Http\Controllers\ClassroomsStudentController;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\GradeController;
 use App\Http\Controllers\LectureController;
+use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\Sub_teacherController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\UserController;
@@ -26,12 +27,9 @@ Route::middleware(['auth.type:secretary,teacher'])->group(function (){
     Route::delete('/class_students', [ClassroomsStudentController::class, 'destroy']);
 });
 Route::resource('exams', controller: ExamController::class);
-Route::get('/exam/addQuestion/{id}', [ExamController::class, 'addQuestion'])->name('exam.addQuestion');
-Route::post('exam/store-question', [ExamController::class, 'storeQuestion'])->name('exam.storeQuestion');
-Route::get('/question/allQuestioions/{id}', [ExamController::class, 'question'])->name('question.allQuestioions')->middleware('check.user.exam');;
-Route::get('/questions/{question}/edit', [ExamController::class, 'editQuestion'])->name('questions.edit');
-Route::put('/questions/{question}', action: [ExamController::class, 'updateQuestion']);
-Route::delete('/questions/{question}', [ExamController::class, 'delete']);
+Route::resource('questions', controller: QuestionController::class);
+Route::get('/exam/addQuestion/{id}', [QuestionController::class, 'addQuestion'])->name('exam.addQuestion');
+
 
 // ->middleware(['auth.type:teacher'])
 

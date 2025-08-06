@@ -6,7 +6,7 @@
 @section('content')
 
 <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
-    <h1 class="page-title fw-semibold fs-18 mb-0"><a href="{{url('question/allQuestioions' ,['id' => $id,] )}}">
+    <h1 class="page-title fw-semibold fs-18 mb-0"><a href="{{route('questions.show' ,['question' => $id])}}">
             <i class="fa-solid fa-circle-left " style="color: #9933FF;"></i> <span class="ml-2">
                 All Questions </span> </a></h1>
     <div class="ms-md-1 ms-0">
@@ -14,7 +14,7 @@
         <nav>
             <ol class="breadcrumb mb-0">
                 <li class="breadcrumb-item"><a href="{{url('/')}}">{{__('dashboard.dashboard')}}</a></li>
-                <li class="breadcrumb-item active" aria-current="page"> add Question   </li>
+                <li class="breadcrumb-item active" aria-current="page"> add Question </li>
             </ol>
         </nav>
     </div>
@@ -64,16 +64,17 @@
             <option value="option_C">option_C</option>
             <option value="option_D">option_D</option>
         </select>
-        </div>
-   
-    
-   <div class="col-md-6">
-    <button type="button" onclick="performStore('yes')" style="background-color: #90e0ef" class="btn mt-3 w-100">Add another question <i
-            class="fa-solid fa-arrow-right"></i></button>
-   </div>
-   <div class="col-md-6">
-    <button type="button" onclick="performStore('no')" class="btn btn-success mt-3 w-100">Finish <i class="fa-solid fa-check"></i></button>
-   </div>
+    </div>
+
+
+    <div class="col-md-6">
+        <button type="button" onclick="performStore('yes')" style="background-color: #90e0ef" class="btn mt-3 w-100">Add
+            another question <i class="fa-solid fa-arrow-right"></i></button>
+    </div>
+    <div class="col-md-6">
+        <button type="button" onclick="performStore('no')" class="btn btn-success mt-3 w-100">Finish <i
+                class="fa-solid fa-check"></i></button>
+    </div>
 
 
 
@@ -116,7 +117,7 @@
         );
              return;    
             }
-                axios.post('/exam/store-question', {
+                axios.post('/questions', {
                 question: document.getElementById('question').value,
                 option_A: document.getElementById('option_A').value,
                 option_B: document.getElementById('option_B').value,

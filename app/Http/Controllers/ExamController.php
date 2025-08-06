@@ -24,16 +24,16 @@ class ExamController extends Controller
             'exams' => $exams,
         ]);
     }
-    public function question($id)
-    {
-        //
-        $questions = Question::where('exam_id' , $id)->paginate(20);
-        $exam_id = $id;
-        return view('exam.allQuestions',[
-            'questions' => $questions,
-            'exam_id' => $exam_id,
-        ]);
-    }
+    // public function question($id)
+    // {
+    //     //
+    //     $questions = Question::where('exam_id' , $id)->paginate(20);
+    //     $exam_id = $id;
+    //     return view('exam.allQuestions',[
+    //         'questions' => $questions,
+    //         'exam_id' => $exam_id,
+    //     ]);
+    // }
 
     /**
      * Show the form for creating a new resource.
@@ -96,65 +96,65 @@ class ExamController extends Controller
      * Add Two Function For Questions
      */
 
-     public function addQuestion($id){
-        $exam = Exam::findOrFail($id);
-        $title = $exam->title;
-        $requiredQuestionsCount = $exam->question_num;
-        $questions_count = Question::where('exam_id',$id)->count() + 1;
-        $num_of_questions = Question::where('exam_id',$id)->count();
-        return view('exam.addQuestion',[
-            'id' => $id,
-            'title' => $title,
-            'questions_count' => $questions_count,
-            'requiredQuestionsCount' => $requiredQuestionsCount,
-            'num_of_questions' => $num_of_questions,
-        ]);
-     }
+    //  public function addQuestion($id){
+    //     $exam = Exam::findOrFail($id);
+    //     $title = $exam->title;
+    //     $requiredQuestionsCount = $exam->question_num;
+    //     $questions_count = Question::where('exam_id',$id)->count() + 1;
+    //     $num_of_questions = Question::where('exam_id',$id)->count();
+    //     return view('exam.addQuestion',[
+    //         'id' => $id,
+    //         'title' => $title,
+    //         'questions_count' => $questions_count,
+    //         'requiredQuestionsCount' => $requiredQuestionsCount,
+    //         'num_of_questions' => $num_of_questions,
+    //     ]);
+    //  }
 
-    public function storeQuestion(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'question' => 'required|string',
-            'option_A' => 'required|string',
-            'option_B' => 'required|string',
-            'option_C' => 'required|string',
-            'option_D' => 'required|string',
-            'correctAnswer' => 'required|string',
-            'exam_id' => 'required|exists:exams,id',
-        ]);
+    // public function storeQuestion(Request $request)
+    // {
+    //     $validator = Validator::make($request->all(), [
+    //         'question' => 'required|string',
+    //         'option_A' => 'required|string',
+    //         'option_B' => 'required|string',
+    //         'option_C' => 'required|string',
+    //         'option_D' => 'required|string',
+    //         'correctAnswer' => 'required|string',
+    //         'exam_id' => 'required|exists:exams,id',
+    //     ]);
         
-        if (!$validator->fails()) {
+    //     if (!$validator->fails()) {
 
-            $question = new Question();
-            $question->the_question = $request->input('question');
-            $question->option_A = $request->input('option_A');
-            $question->option_B = $request->input('option_B');
-            $question->option_C = $request->input('option_C');
-            $question->option_D = $request->input('option_D');
-            $question->correct_answer = $request->input('correctAnswer');
-            $question->exam_id = $request->input('exam_id');
-            $isSaved = $question->save();
-            $anotrherQuestion = $request->input('anotrherQuestion');
-            if($isSaved){
-                // $questions_count = Question::where('exam_id', $question->exam_id)->count();
-                return response()->json([
-                    'message' => 'Question added successfully!',
-                    // 'questions_count' => $questions_count,
-                    'anotrherQuestion' => $anotrherQuestion
-                    ]);
-            }else{
+    //         $question = new Question();
+    //         $question->the_question = $request->input('question');
+    //         $question->option_A = $request->input('option_A');
+    //         $question->option_B = $request->input('option_B');
+    //         $question->option_C = $request->input('option_C');
+    //         $question->option_D = $request->input('option_D');
+    //         $question->correct_answer = $request->input('correctAnswer');
+    //         $question->exam_id = $request->input('exam_id');
+    //         $isSaved = $question->save();
+    //         $anotrherQuestion = $request->input('anotrherQuestion');
+    //         if($isSaved){
+    //             // $questions_count = Question::where('exam_id', $question->exam_id)->count();
+    //             return response()->json([
+    //                 'message' => 'Question added successfully!',
+    //                 // 'questions_count' => $questions_count,
+    //                 'anotrherQuestion' => $anotrherQuestion
+    //                 ]);
+    //         }else{
 
-                return response()->json(['message' => 'Failed to add question.'], 500);
-            }
+    //             return response()->json(['message' => 'Failed to add question.'], 500);
+    //         }
             
-        }else{
-            return response()->json(['message' => $validator->errors()->first()], 422);
-        }
+    //     }else{
+    //         return response()->json(['message' => $validator->errors()->first()], 422);
+    //     }
 
         
 
        
-    }
+    // }
     /**
      * Display the specified resource.
      */
@@ -162,24 +162,7 @@ class ExamController extends Controller
     {
         //
     }
-    public function editQuestion(Question $question)
-    {
-        $exam_id = $question->exam_id;
-        $exam = Exam::find($exam_id);
-        $options = [
-            'option_A' => 'option_A ',
-            'option_B' => 'option_B',
-            'option_C' => 'option_C',
-            'option_D' => 'option_D',
-        ];
-        // $title = $exam->title;
-        return view('exam.editQuestion',[
-            'question' => $question,
-            'exam' => $exam,
-            'exam_id' => $exam_id,
-            'options' => $options,
-        ]);
-    }
+    
     public function updateQuestion(Request $request , Question $question)
     {
         $validator = Validator::make($request->all(), [
@@ -293,30 +276,6 @@ class ExamController extends Controller
             ]
             );
     }
-    public function delete(Question $question)
-    {
-        //
-        $exam_id = $question->exam_id;
-        $exam = Exam::findOrFail($exam_id);
-        $requiredQuestionsCount = $exam->question_num;
-        $num_of_questions = Question::where('exam_id', $exam_id)->count();
-        if($num_of_questions <= $requiredQuestionsCount){
-            return response()->json(
-                [
-                    "message" => 'Cannot delete. The number of questions is at or below the required count.',
-                ],
-                Response::HTTP_BAD_REQUEST
-            );
-        }else{
-            $deleted = $question->delete();
-        return response()->json(
-            [
-                "message" => $deleted ? 'Deleted Successfully' : 'Deleted Failed',
-                $deleted ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST
-            ]
-            ); 
-        }
-       
-    }
+    
 
 }
