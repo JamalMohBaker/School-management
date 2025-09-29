@@ -32,7 +32,7 @@ class QuestionController extends Controller
         $title = $exam->title;
         $requiredQuestionsCount = $exam->question_num;
         $questions_count = Question::where('exam_id', $id)->count() + 1;
-        $num_of_questions = Question::where('exam_id', $id)->count();
+        $num_of_questions = Question::where('exam_id', $id)->count() + 2;
         return view('question.create', [
             'id' => $id,
             'title' => $title,
@@ -91,7 +91,7 @@ class QuestionController extends Controller
     public function show($id)
     {
         //
-        $questions = Question::where('exam_id', $id)->paginate(20);
+        $questions = Question::where('exam_id', $id)->paginate(10);
         $exam_id = $id;
         return view('question.allQuestions', [
             'questions' => $questions,

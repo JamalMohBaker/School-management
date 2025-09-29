@@ -68,7 +68,7 @@
     </div>
     <div class="col-md-6">
         <label for="date" class="form-label"> Date </label>
-        <input type="date" value="{{ old('date', $exam->day_date) }}" name="date" class="form-control" id="date">
+        <input type="date" value="{{ old('date', $exam->day_date->format('Y-m-d')) }}" name="date" class="form-control" id="date">
     </div>
     <div class="col-md-6">
         <label for="time_open" class="form-label"> Time Open </label>

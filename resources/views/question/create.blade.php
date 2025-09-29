@@ -108,15 +108,24 @@
     });
     });
     function performStore(anotrherQuestion) {
-       const num_of_questions = document.getElementById('num_of_questions').value;
-        const requiredQuestionsCountValue = document.getElementById('requiredQuestionsCount').value;
-          
+    //    const num_of_questions = document.getElementById('num_of_questions').value;
+    //     const requiredQuestionsCountValue = document.getElementById('requiredQuestionsCount').value;
+            var num_of_questions = {{ $num_of_questions }};
+            var requiredQuestionsCount = {{ $requiredQuestionsCount }};
+            console.log(num_of_questions);
+            console.log(' yse');
+            console.log(requiredQuestionsCount);
         // }
-        if (anotrherQuestion === 'no' && num_of_questions < requiredQuestionsCount) { toastr.error(
-            `The number of questions must be at least equal to the number of questions that will be shown to the students.`
-        );
-             return;    
-            }
+            if (anotrherQuestion === 'no' && (requiredQuestionsCount >= num_of_questions  ) ) { 
+                console.log('done');
+                toastr.error(
+                            `The number of questions must be at least equal to the number of questions that will be shown to the students.`
+                            );
+                 return;             
+                }
+        
+               
+            
                 axios.post('/questions', {
                 question: document.getElementById('question').value,
                 option_A: document.getElementById('option_A').value,
