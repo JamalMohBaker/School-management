@@ -74,6 +74,7 @@ class StudentController extends Controller
         $exam = Exam::where('id',$id)->first();
         $startExam = $exam->start_at;
         $endExam = $exam->end_at;
+        // $score = $exam::count()
         $session_exam_is_between =0;
         $now= now()->format('H:i:s');
         $today = Carbon::now()->format('d-m-y l');

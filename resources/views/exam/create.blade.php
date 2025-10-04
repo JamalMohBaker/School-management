@@ -73,17 +73,25 @@
             <input type="time" value="{{ old('time_close') }}" name="time_close" class="form-control" id="time_close" >
         </div>
         
-        <div class="col-md-4">
+        <div class="col-md-3">
             <label for="question_num" class="form-label"> How Many Questions For Students? </label>
             <input type="text" value="{{ old('question_num') }}" name="question_num" class="form-control" id="question_num" placeholder="10">
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <label for="score" class="form-label"> Score Per Question </label>
             <input type="text" value="{{ old('score') }}" name="score" class="form-control" id="score" placeholder="1">
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <label for="final_score" class="form-label"> Final Score </label>
             <input type="text" value="{{ old('final_score') }}" name="final_score" class="form-control" id="final_score" placeholder="20">
+        </div>
+        <div class="col-md-3">
+            <label for="show_score" class="form-label"> Show Score </label>
+            <select class="js-example-basic-single" name="show_score" id="show_score">
+                <option value="1">Yes</option>
+                <option value="0" selected>No</option>
+            </select>
+        
         </div>
         <button type="submit" class="btn btn-primary mt-3 w-100">Next <i class="fa-solid fa-arrow-right"></i></button>
 

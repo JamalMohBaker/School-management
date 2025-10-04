@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\ClassroomsStudent;
 use App\Models\Exam;
+use App\Models\ExamAnswer;
+use App\Models\ExamSession;
 use App\Models\Question;
 use App\Models\SubjectTeacher;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -79,6 +82,7 @@ class ExamController extends Controller
             $exam->question_num = $request->input(key: 'question_num');
             $exam->score = $request->input(key: 'score');
             $exam->final_score = $request->input(key: 'final_score');
+            $exam->show_score = $request->input(key: 'show_score');
             $isSaved = $exam->save();
             if($isSaved){
                
@@ -158,9 +162,34 @@ class ExamController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
         //
+        $exam_sessions = ExamSession::where('exam_id',$id)->paginate(10);
+        // $user_id = $exam_session->user_id;
+        // $users = User::where('id', $user_id)->get();
+        $exam = Exam::where('id', $id)->firstOrFail();
+        $final_score = $exam->final_score;
+        $pass = $final_score/2;
+        return view('exam.show',[
+            'exam_sessions' => $exam_sessions,
+            'id' => $id,
+            'final_score' => $final_score,
+            'pass' => $pass,
+        ]);
+    }
+    public function answerQuestion($user_id,$exam_id){
+        $exam_session = ExamSession::where('user_id',$user_id)
+                                    ->where('exam_id',$exam_id)->firstOrFail();
+        $user = User::where('id',$user_id)->first();
+        $exam = Exam::where('id',$exam_id)->first();
+        $examanswers = ExamAnswer::where('exam_session_id',$exam_session->id)->paginate(10);
+        return view('exam.answerQuestion',
+        [
+            'user' => $user,
+            'exam' => $exam,
+            'examanswers' => $examanswers
+        ])  ;                                  
     }
     
     public function updateQuestion(Request $request , Question $question)
@@ -249,6 +278,7 @@ class ExamController extends Controller
             $exam->question_num = $request->input(key: 'question_num');
             $exam->score = $request->input(key: 'score');
             $exam->final_score = $request->input(key: 'final_score');
+            $exam->show_score = $request->input(key: 'show_score');
             $isSaved = $exam->save();
             if ($isSaved) {
                 session()->flash('success', 'Updateed Successfully!!');

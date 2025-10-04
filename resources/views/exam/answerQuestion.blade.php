@@ -15,11 +15,11 @@
 @endsection
 @section('content')
 <div class="row">
-  @if(session('success'))
+    @if(session('success'))
     <div class="alert alert-success mt-5" id="success-alert">
         {{ session('success') }}
     </div>
-    
+
     <script>
         // انتظر 5 ثوانٍ ثم قم بإخفاء الرسالة
             setTimeout(function() {
@@ -30,6 +30,10 @@
             }, 5000); // 5000 milliseconds = 5 seconds
     </script>
     @endif
+    <div class="mt-3 d-flex justify-content-between align-items-center">
+        <p>Name of St: {{$user->first_name}} {{$user->last_name}}</p>
+        <p>Name of Exam: {{$exam->title}}</p>
+    </div>
     <div class="col-xl-12 mt-5">
         <div class="card custom-card">
             <div class="card-header">
@@ -40,40 +44,39 @@
                     <thead>
                         <tr>
                             <th scope="col">Id</th>
-                            <th scope="col">Title</th>
-                            <th scope="col">Subject</th>
-                            <th scope="col">For Class </th>
-                            <th scope="col">Show Questions</th>
-                            <th scope="col">Students' Results</th>
-                            <th scope="col">Action</th>
+                            <th scope="col">Questions</th>
+                            <th scope="col">Correct answer</th>
+                            <th scope="col">Answer </th>
+                         
+
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($exams as $exam)
+                        @foreach ($examanswers as $examanswer)
                         <tr>
                             <th scope="row">
                                 <div class="d-flex align-items-center">
                                     {{-- {{ $grade->id }} --}}
-                                    {{$exams->firstItem() + $loop->index}}
+                                    {{$examanswers->firstItem() + $loop->index}}
                                     {{-- $grades->firstItem() تعطي الرقم الفعلي لأول عنصر في الصفحة الحالية.
                                     $loop->index هو رقم العنصر داخل الحلقة (يبدأ من 0). --}}
                                 </div>
                             </th>
-
-                            <td>{{ $exam->title }}</td>
-                            <td>{{ $exam->subjectTeacherClassroom->subject->name }}</td>
-                            <td>{{ $exam->subjectTeacherClassroom->classroom->grade->name }} {{ $exam->subjectTeacherClassroom->classroom->name }}</td>
-                            <td><a href="{{route('questions.show', ['question' => $exam->id])}}" class="btn bg-primary text-white">Show All Questions</a></td>
-                            <td><a href="{{route('exams.show', ['exam' => $exam->id])}}" class="btn bg-info text-white">Show Students'Results</a></td>
+                        
+                            <td>{{ $examanswer->question->the_question }}</td>
+                            {{-- <td>{{$examnaswer->question->correct_answer}}</td> --}}
+                            <td>{{ $examanswer->question[$examanswer->question->correct_answer] }}</td>
+                            {{-- <td>{{$examanswer->question[$examanswer->answer]}}</td> --}}
                             
                             <td>
-                                <div class="hstack gap-2 flex-wrap">
-                                    <a href="{{ route('exams.edit', $exam->id) }}" class="text-info fs-14 lh-1"><i
-                                            class="ri-edit-line"></i></a>
-                                    <a href="#" onclick="confirmDelete('{{$exam->id}}', this)"
-                                        class="text-danger fs-14 lh-1"><i class="ri-delete-bin-5-line"></i></a>
-                                </div>
+                                @if ($examanswer->question[$examanswer->question->correct_answer] == $examanswer->question[$examanswer->answer])
+                                <span class="text-success fs-16">{{$examanswer->question[$examanswer->answer]}}</span>
+                                @else
+                                <span class="text-danger fs-16">{{$examanswer->question[$examanswer->answer]}}</span>
+
+                                @endif
                             </td>
+                  
                         </tr>
                         @endforeach
 
@@ -81,59 +84,18 @@
 
                 </table>
                 <div class="mt-3">
-                    {{ $exams->links() }}
+                    {{ $examanswers->links() }}
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="position-relative">
-    <a href="{{route('exams.create')}}">
-        <div class="position-absolute bottom-10 end-0 btn btn-primary">
-            + {{__('dashboard.add')}}
-        </div>
-    </a>
-</div>
+
 
 @section('scripts')
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-    function confirmDelete(id, element){
-                Swal.fire({
-                    title: "Are you sure?",
-                    text: "You won't be able to revert this!",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "Yes, delete it!"
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                    performDelete(id,element);
-                    // Swal.fire({
-                    // title: "Deleted!",
-                    // text: "Your file has been deleted.",
-                    // icon: "success"
-                    // });
-                }
-                });
-            }
-    
-            function performDelete(id, element){
-                axios.delete('/exams/' + id)
-                .then(function (response){
-                    toastr.success(response.data.message);
-                    element.closest('tr').remove();
-                    // element.closest('tr') اقرب tr الها
-                
-                })
-                .catch(function (error){
-                toastr.error(error.response.data.message);
-                });
-                
-            }
-</script>
+
 <!-- Datatables Cdn -->
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>

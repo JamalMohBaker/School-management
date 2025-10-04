@@ -29,6 +29,8 @@ Route::middleware(['auth.type:secretary,teacher,admin,student'])->group(function
     Route::delete('/class_students', [ClassroomsStudentController::class, 'destroy']);
 });
 Route::resource('exams', controller: ExamController::class);
+Route::get('/exam/answer-question/{user_id}/{exam_id}',  [ ExamController::class, 'answerQuestion'])
+    ->name('exam.answerQuestion');
 Route::resource('questions', controller: QuestionController::class);
 Route::get('/exam/addQuestion/{id}', [QuestionController::class, 'addQuestion'])->name('exam.addQuestion');
 
