@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable
 {
@@ -62,4 +63,26 @@ class User extends Authenticatable
     {
         return $this->hasMany(ClassroomsStudent::class);
     }
+    public function givenRatings()
+    {
+        return $this->hasMany(Rating::class, 'teacher_id');
+    }
+    public function receivedRatings()
+    {
+        return $this->hasMany(Rating::class, 'student_id');
+    }
+
+    // Scope صحيح - يجب أن تبدأ بكلمة scope
+    public function scopeTeachers($query)
+    {
+        return $query->where('type', 'teacher');
+    }
+    public function getAverageRatingAttribute()
+    {
+        return $this->givenRatings()->avg('score');
+    }
+    public function histories(){
+        return $this->hasMany(History::class);
+    }
+ 
 }

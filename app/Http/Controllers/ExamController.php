@@ -6,6 +6,7 @@ use App\Models\ClassroomsStudent;
 use App\Models\Exam;
 use App\Models\ExamAnswer;
 use App\Models\ExamSession;
+use App\Models\History;
 use App\Models\Question;
 use App\Models\SubjectTeacher;
 use App\Models\User;
@@ -85,7 +86,11 @@ class ExamController extends Controller
             $exam->show_score = $request->input(key: 'show_score');
             $isSaved = $exam->save();
             if($isSaved){
-               
+                History::create([
+                    'description' => "New Exam registered:  $exam->title ",
+                    'user_id' => Auth::user()->id,
+                    'type' => "create"
+                ]);
                 return redirect()->route('exam.addQuestion' , ['id' => $exam->id,]);
             }else{
                 session()->flash('failed', 'Created Failed!!');
@@ -281,6 +286,11 @@ class ExamController extends Controller
             $exam->show_score = $request->input(key: 'show_score');
             $isSaved = $exam->save();
             if ($isSaved) {
+                History::create([
+                    'description' => "Update Exam :  $exam->title ",
+                    'user_id' => Auth::user()->id,
+                    'type' => "Update"
+                ]);
                 session()->flash('success', 'Updateed Successfully!!');
                 return redirect()->route('exams.index');
             } else {
@@ -298,7 +308,15 @@ class ExamController extends Controller
     public function destroy(Exam $exam)
     {
         //
+        $ExamTitle = $exam->title;
         $deleted = $exam->delete();
+        if($deleted){
+            History::create([
+                'description' => "Update Exam :  $ExamTitle ",
+                'user_id' => Auth::user()->id,
+                'type' => "Delete"
+            ]);
+        }
         return response()->json(
             [
                 "message" => $deleted ? 'Deleted Successfully' : 'Deleted Failed',

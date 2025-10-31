@@ -82,7 +82,7 @@
                     <!-- Start::header-element -->
                     <div class="header-element">
                         <div class="horizontal-logo">
-                            <a href="index.html" class="header-logo">
+                            <a href="{{ route('home') }}" class="header-logo">
                                 <img src="{{asset('assets/images/brand-logos/school.jpeg')}}" alt="logo"
                                     class="desktop-logo">
                                 <img src="{{asset('assets/images/brand-logos/school.jpeg')}}" alt="logo"
@@ -117,14 +117,14 @@
                 <div class="header-content-right">
 
                     <!-- Start::header-element -->
-                    <div class="header-element header-search">
+                    {{-- <div class="header-element header-search">
                         <!-- Start::header-link -->
                         <a href="javascript:void(0);" class="header-link" data-bs-toggle="modal"
                             data-bs-target="#searchModal">
                             <i class="bx bx-search-alt-2 header-link-icon"></i>
                         </a>
                         <!-- End::header-link -->
-                    </div>
+                    </div> --}}
                     <!-- End::header-element -->
 
                     <!-- Start::header-element -->
@@ -315,35 +315,31 @@
                             data-bs-auto-close="outside" aria-expanded="false">
                             <div class="d-flex align-items-center">
                                 <div class="me-sm-2 me-0">
-                                    <img src="{{asset('assets/images/faces/9.jpg')}}" alt="img" width="32" height="32"
+                                    @if (Auth::user()->image)
+                                    <img src="{{ asset('storage/' . Auth::user()->image) }}" alt="img" width="32" height="32"
                                         class="rounded-circle">
+                                    @else    
+                                    <img src="{{ asset('assets/images/image.jpeg') }}" alt="img" width="32" height="32"
+                                        class="rounded-circle">
+                                    @endif    
                                 </div>
                                 <div class="d-sm-block d-none">
-                                    <p class="fw-semibold mb-0 lh-1"> {{Auth::user()->first_name}} {{Auth::user()->last_name}} </p>
-                                    <span class="op-7 fw-normal d-block mt-1" style="text-align: center"> {{Auth::user()->type}}</span>
+                                    <p class="fw-semibold mb-0 lh-1"> {{Auth::user()->first_name}}
+                                        {{Auth::user()->last_name}} </p>
+                                    <span class="op-7 fw-normal d-block mt-1" style="text-align: center">
+                                        {{Auth::user()->type}}</span>
                                 </div>
                             </div>
                         </a>
                         <!-- End::header-link|dropdown-toggle -->
                         <ul class="main-header-dropdown dropdown-menu pt-0 overflow-hidden header-profile-dropdown dropdown-menu-end"
                             aria-labelledby="mainHeaderProfile">
-                            <li><a class="dropdown-item d-flex" href="profile.html"><i
+                            <li><a class="dropdown-item d-flex" href="{{ route('users.edit', auth()->user()) }}"><i
                                         class="ti ti-user-circle fs-18 me-2 op-7"></i>Profile</a></li>
-                            <li><a class="dropdown-item d-flex" href="mail.html"><i
-                                        class="ti ti-inbox fs-18 me-2 op-7"></i>Inbox <span
-                                        class="badge bg-success-transparent ms-auto">25</span></a></li>
-                            <li><a class="dropdown-item d-flex border-block-end" href="to-do-list.html"><i
-                                        class="ti ti-clipboard-check fs-18 me-2 op-7"></i>Task Manager</a></li>
-                            <li><a class="dropdown-item d-flex" href="mail-settings.html"><i
-                                        class="ti ti-adjustments-horizontal fs-18 me-2 op-7"></i>Settings</a></li>
-                            <li><a class="dropdown-item d-flex border-block-end" href="javascript:void(0);"><i
-                                        class="ti ti-wallet fs-18 me-2 op-7"></i>Bal: $7,12,950</a></li>
-                            <li><a class="dropdown-item d-flex" href="chat.html"><i
-                                        class="ti ti-headset fs-18 me-2 op-7"></i>Support</a></li>
                             <li><a class="dropdown-item d-flex" id="logout" style="cursor: pointer;" onclick="logout()">
-                                <i class="ti ti-logout fs-18 me-2 op-7"></i>
+                                    <i class="ti ti-logout fs-18 me-2 op-7"></i>
                                     logout
-                                    </a></li>
+                                </a></li>
                         </ul>
                     </div>
                     <!-- End::header-element -->
@@ -363,7 +359,7 @@
 
             <!-- Start::main-sidebar-header -->
             <div class="main-sidebar-header">
-                <a href="index.html" class="header-logo">
+                <a href="{{ route('home') }}" class="header-logo">
                     <img src="{{asset('assets/images/brand-logos/school.jpeg')}}" alt="logo" class="desktop-logo">
                     <img src="{{asset('assets/images/brand-logos/school.jpeg')}}" alt="logo" class="toggle-logo">
                     <img src="{{asset('assets/images/brand-logos/school.jpeg')}}" alt="logo" class="desktop-dark">
@@ -391,7 +387,7 @@
                         <!-- End::slide__category -->
 
                         <!-- Start::slide -->
-
+                        @if (Auth::user()->type == 'admin' or Auth::user()->type == 'secretary')
                         <li class="slide has-sub">
                             <a href="javascript:void(0);" class="side-menu__item">
                                 <i class="fa-solid fa-user m-1"></i>
@@ -417,6 +413,8 @@
 
                             </ul>
                         </li>
+                        @endif
+                        @if (Auth::user()->type == 'secretary')
                         <li class="slide has-sub">
                             <a href="javascript:void(0);" class="side-menu__item">
                                 <i class="bi bi-house-add-fill"></i>
@@ -443,6 +441,8 @@
 
                             </ul>
                         </li>
+                        @endif
+                        @if (Auth::user()->type == 'secretary')
                         <li class="slide has-sub">
                             <a href="javascript:void(0);" class="side-menu__item">
                                 <i class="bi bi-house-add-fill"></i>
@@ -469,6 +469,8 @@
 
                             </ul>
                         </li>
+                        @endif
+                        @if (Auth::user()->type == 'secretary')
                         <li class="slide has-sub">
                             <a href="javascript:void(0);" class="side-menu__item">
                                 <i class="bi bi-house-add-fill"></i>
@@ -495,6 +497,8 @@
 
                             </ul>
                         </li>
+                        @endif
+                        @if (Auth::user()->type == 'secretary')
                         <li class="slide has-sub">
                             <a href="javascript:void(0);" class="side-menu__item">
                                 <i class="bi bi-house-add-fill"></i>
@@ -521,6 +525,8 @@
 
                             </ul>
                         </li>
+                        @endif
+                        @if (Auth::user()->type == 'teacher')
                         <li class="slide has-sub">
                             <a href="javascript:void(0);" class="side-menu__item">
                                 <i class="bi bi-house-add-fill"></i>
@@ -547,6 +553,8 @@
 
                             </ul>
                         </li>
+                        @endif
+                        @if (Auth::user()->type !== 'student')
                         <li class="slide has-sub">
                             <a href="javascript:void(0);" class="side-menu__item">
                                 <i class="bi bi-house-add-fill"></i>
@@ -573,6 +581,8 @@
 
                             </ul>
                         </li>
+                        @endif
+                        @if (Auth::user()->type == 'teacher')
                         <li class="slide has-sub">
                             <a href="javascript:void(0);" class="side-menu__item">
                                 <i class="bi bi-house-add-fill"></i>
@@ -599,6 +609,53 @@
 
                             </ul>
                         </li>
+                        @endif
+                        @if (Auth::user()->type == 'student')
+                        <li class="slide has-sub">
+                            <a href="javascript:void(0);" class="side-menu__item">
+                                <i class="bi bi-house-add-fill"></i>
+                                <i class="fa-solid fa-book-medical m-1"></i>
+                                <span class="side-menu__label">Class</span>
+                                <i class="fe fe-chevron-right side-menu__angle"></i>
+                            </a>
+                            <ul class="slide-menu child1">
+
+                                <li class="slide has-sub">
+                                    <a href="{{route('students.index')}}" class="side-menu__item">
+                                        <i class="bi bi-house-add-fill"></i>
+                                        {{-- <i class="fa-solid fa-person-circle-plus"></i> --}}
+                                        <span class="p-1">Class</span>
+                                    </a>
+
+                                </li>
+
+
+                            </ul>
+                        </li>
+                        @endif
+                        @if (Auth::user()->type == 'admin')
+                        <li class="slide has-sub">
+                            <a href="javascript:void(0);" class="side-menu__item">
+                                <i class="bi bi-house-add-fill"></i>
+                                <i class="fa-solid fa-book-medical m-1"></i>
+                                <span class="side-menu__label">History</span>
+                                <i class="fe fe-chevron-right side-menu__angle"></i>
+                            </a>
+                            <ul class="slide-menu child1">
+
+                                <li class="slide has-sub">
+                                    <a href="{{route('history')}}" class="side-menu__item">
+                                        <i class="bi bi-house-add-fill"></i>
+                                        {{-- <i class="fa-solid fa-person-circle-plus"></i> --}}
+                                        <span class="p-1">History</span>
+                                    </a>
+
+                                </li>
+
+
+                            </ul>
+                        </li>
+                        @endif 
                     </ul>
                     <div class="slide-right" id="slide-right"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191"
                             width="24" height="24" viewBox="0 0 24 24">
@@ -621,7 +678,7 @@
         </div>
         <!-- End::app-content -->
 
-        <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModal" aria-hidden="true">
+        {{-- <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModal" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-body">
@@ -684,7 +741,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <!-- Footer Start -->
         <footer class="footer mt-auto py-3 bg-white text-center">
             <div class="container">
@@ -753,7 +810,7 @@
     <script src="{{asset('assets/js/custom.js')}}"></script>
     @yield('scripts')
     <script>
-       function logout(){
+        function logout(){
 
         $.ajax({
         url:"{{route('logout') }}",

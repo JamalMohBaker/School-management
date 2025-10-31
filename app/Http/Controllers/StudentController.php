@@ -7,6 +7,7 @@ use App\Models\Exam;
 use App\Models\ExamSession;
 use App\Models\Lecture;
 use App\Models\Question;
+use App\Models\Rating;
 use App\Models\Subject;
 use App\Models\SubjectTeacher;
 use App\Models\User;
@@ -63,10 +64,21 @@ class StudentController extends Controller
         // أزل المسافة الزائدة بعد subject_teacher_classroom_id
         $lectures = Lecture::where('subject_teacher_classroom_id', $id)->get();
         $exams = Exam::where('subject_teacher_classroom_id', $id)->get();
+       
+        $subject_teacher = SubjectTeacher::findOrFail($id);
+        $teacher_id = $subject_teacher->user->id;
 
+        $student = Auth::user();
+        $std_id = $student->id;
+        $rating = Rating::where('student_id',$std_id)
+                        ->where('teacher_id',$teacher_id)
+                        ->first();    
         return view('students.show', [
             'lectures' => $lectures,
             'exams' => $exams,
+            'teacher_id' => $teacher_id,
+            'std_id' => $std_id,
+            'rating' => $rating,
             
         ]);
     }
