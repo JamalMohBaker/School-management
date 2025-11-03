@@ -23,7 +23,7 @@
     <div class="row gy-3">
         <div class="col-xl-12">
            
-            <label for="user" class="form-label mt-3"> User </label>
+            {{-- <label for="user" class="form-label mt-3"> User </label>
             <select class="js-example-basic-single" name="user" id="user">
                 <option value="s-1"></option>
                 @foreach ($users as $user )
@@ -36,7 +36,25 @@
                 @foreach ($classrooms as $classroom )
                 <option value="{{$classroom->id}}">{{$classroom->grade->name}} {{$classroom->name }} </option>
                 @endforeach
+            </select> --}}
+            <label for="user" class="form-label mt-3">User</label>
+            <select class="js-example-basic-single" name="user" id="user" required>
+                <option value="">Choose Student</option>
+                @foreach ($users as $user)
+                <option value="{{ $user->id }}">
+                    {{ $user->first_name }} {{ $user->last_name }}
+                </option>
+                @endforeach
             </select>
+            
+            <label for="classroom" class="form-label mt-3">Classroom</label>
+            <select class="js-example-basic-single" name="classroom" id="classroom" disabled>
+                <option value="">Please select a student first</option>
+            </select>
+            
+            <div id="loading" style="display: none;">
+                <small class="text-muted">Loading classrooms...</small>
+            </div>
             
             
             <button type="button" onclick="performStore()" class="btn btn-primary mt-3 w-100"> +
@@ -77,6 +95,52 @@
                 });
             }
 </script>
-
+<script>
+    $(document).ready(function() {
+        // $('#user'): نختار العنصر الذي له id="user"
+    $('#user').change(function() {
+        var userId = $(this).val();
+        var classroomSelect = $('#classroom');
+        var loading = $('#loading');
+        
+        if (userId) {
+            // إظهار loading
+            loading.show();
+            classroomSelect.prop('disabled', true).html('<option value="">Loading...</option>');
+            
+            // جلب الفصول المتاحة
+            $.ajax({
+                url: '/classrooms/available/' + userId,
+                type: 'GET',
+                success: function(data) {
+                    classroomSelect.html('<option value="">Choose Classroom</option>');
+                    
+                    if (data.length > 0) {
+                        $.each(data, function(index, classroom) {
+                            var gradeName = classroom.grade ? classroom.grade.name : '';
+                            classroomSelect.append(
+                                '<option value="' + classroom.id + '">' + 
+                                gradeName + ' ' + classroom.name + 
+                                '</option>'
+                            );
+                        });
+                        classroomSelect.prop('disabled', false);
+                    } else {
+                        classroomSelect.html('<option value="">No available classrooms</option>');
+                    }
+                },
+                error: function() {
+                    classroomSelect.html('<option value="">Error loading classrooms</option>');
+                },
+                complete: function() {
+                    loading.hide();
+                }
+            });
+        } else {
+            classroomSelect.prop('disabled', true).html('<option value="">Please select a student first</option>');
+        }
+    });
+});
+</script>
 @endsection
 @endsection

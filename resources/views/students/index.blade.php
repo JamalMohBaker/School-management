@@ -16,8 +16,7 @@
                     <p class="mb-2">{{$subject_teacher->classroom->grade->name}} {{$subject_teacher->classroom->name}} Class</p>
                     <h4 class="mb-0 fw-semibold mb-2">{{$subject_teacher->subject->name}} Language</h4>
                     <span class="badge bg-success-transparent">T. {{$subject_teacher->user->first_name}}</span>
-                    
-                    <input type="hidden" name="teacher_id" id="teacher_id" value="{{ $subject_teacher->user->id }}">
+                   <input type="hidden" name="teacher_id" id="teacher_id" value="{{ $subject_teacher->user->id }}">
                 </div>
                 <div>
                     <span class="avatar avatar-md bg-primary p-2">

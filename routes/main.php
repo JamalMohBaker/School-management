@@ -61,3 +61,5 @@ Route::put('users/{user}/profile', [UserController::class, 'updateProfile'])
     ->name('users.profile.update')->middleware('auth');
 Route::get('/users/{user}/edit', [UserController::class, 'editProfile'])
     ->name('users.edit')->middleware('auth');
+Route::get('/classrooms/available/{user}', [ClassroomsStudentController::class, 'getAvailableClassrooms'])
+    ->name('classrooms.available');

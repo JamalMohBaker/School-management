@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Classroom;
 use App\Models\ClassroomsStudent;
 use App\Models\User;
+use App\Notifications\AddUserToClassNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,14 +30,27 @@ class ClassroomsStudentController extends Controller
     public function create()
     {
         //
-        $classrooms = Classroom::all();
-        $users = User::where('type','student')->get();
-        return view('classStudent.create',[
-            'classrooms' => $classrooms,
-            'users' =>  $users,
+        $users = User::where('type', 'student')->get();
+
+        return view('classStudent.create', [
+            'users' => $users,
+            'classrooms' => collect(), // فارغ في البداية
         ]);
     }
+    // دالة جديدة لجلب الفصول المتاحة للطالب
+    public function getAvailableClassrooms($userId)
+    {
+        // الفصول التي ليس الطالب مضافًا فيها
+        $existingClassroomIds = ClassroomsStudent::where('user_id', $userId)
+            ->pluck('classroom_id')
+            ->toArray();
 
+        $availableClassrooms = Classroom::with('grade')
+            ->whereNotIn('id', $existingClassroomIds)
+            ->get();
+
+        return response()->json($availableClassrooms);
+    }
     /**
      * Store a newly created resource in storage.
      */
@@ -53,6 +67,12 @@ class ClassroomsStudentController extends Controller
             $classroom_student->user_id = $request->input('user');
             $classroom_student->classroom_id = $request->input('classroom');
             $isSaved = $classroom_student->save();
+            // send notification to user
+            $user = User::find($request->input('user'));
+            $classroom = Classroom::with('grade')->find($request->input('classroom'));
+            if ($user && $classroom) {
+                $user->notify(new AddUserToClassNotification($classroom, $user));
+            }
             return response()->json([
                 'message' => $isSaved ? 'Created Successfully' : 'Create Failed!'
             ], $isSaved ? Response::HTTP_CREATED : Response::HTTP_BAD_REQUEST);
