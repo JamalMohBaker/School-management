@@ -1,61 +1,40 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+Madrasati AI System
+Overview
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Madrasati AI System is a full-stack school management platform built for my graduation project. The main goal of the system is to make daily school tasks easier and safer for teachers, students, and administrators by combining a secure academic database with practical AI tools.
 
-## About Laravel
+Most school platforms only store data. This project goes one step further: it uses artificial intelligence to help with two tasks that usually take teachers a lot of time — creating learning content and grading exams.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+The Problem
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Teachers spend many hours preparing lesson material and correcting exams by hand. At the same time, schools need a reliable way to manage student records, classes, and user accounts, and to make sure that only the right person can log into the right account. I wanted to build a system that solves both problems together, instead of treating them as separate tools.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Key Features
 
-## Learning Laravel
+Role-based database architecture The system separates users into roles (such as student, teacher, and administrator), and each role has different permissions and access to different data. Academic records, classes, and grades are all organized around this role structure, so information stays private and only reaches the people who are supposed to see it.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Secure login with facial recognition Instead of relying only on a password, the login process requires facial recognition as a second step. This makes it much harder for someone to access an account that is not theirs, even if a password is leaked or guessed.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+AI-assisted content generation Teachers can use the built-in AI tool, powered by the Google Gemini API, to help generate learning material and exam questions. This does not replace the teacher's judgment — it gives them a starting point that they can review and edit, which saves preparation time.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+AI-assisted exam grading The system can also grade exams automatically using AI, which reduces the manual work needed to correct large numbers of answers and gives students faster feedback.
 
-## Laravel Sponsors
+Controlled AI behavior One detail I paid close attention to is how the AI is instructed. I wrote a specific system prompt that limits the AI to acting only as a teaching assistant. This means the AI stays focused on educational tasks and does not answer unrelated questions or go outside its intended role — an important safety consideration when AI is connected to a real academic system.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Technology Used
+Backend: PHP (Laravel)
+Database: MySQL
+Frontend: HTML, CSS, JavaScript, Bootstrap
+AI integration: Google Gemini API
+Authentication: Facial recognition combined with standard login
+What I Learned
 
-### Premium Partners
+This project pushed me to think beyond just writing code that works. I had to design a database structure that stays organized as more roles and records are added, and I had to think carefully about security — both for the login system and for how much freedom to give the AI inside the platform. Working with the Gemini API also taught me how to connect an external AI service to a Laravel application and control its output through prompt design.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development/)**
-- **[Active Logic](https://activelogic.com)**
+Status
 
-## Contributing
+This project was completed as my graduation project for a B.Sc. in Web Technology and Information Security at Palestine Technical College.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Author
 
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Jamal M. H. Baker GitHub: github.com/JamalMohBaker LinkedIn: linkedin.com/in/jamal-moh
